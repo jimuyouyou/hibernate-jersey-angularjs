@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel='stylesheet' href='javascripts/bootstrap3.3.2/css/bootstrap.min.css' />
+<link rel='stylesheet' href='javascripts/bootstrap3.3.2/css/bootstrap-theme.min.css' />
+<link rel='stylesheet' href='css/main.css' />
+</head>
+<body class='mr50'>
+	<h1>Welcome to Hibernate Jersey Angular CMS</h1>
+	<div id='err'></div>
+	<a href="add.html" class='btn btn-success'>New Article</a>
+	<p>
+	<div>
+		<table id='blogList' class="table table-bordered" ng-controller='MyController'>
+			<tr>
+				<th>Latest Articles</th>
+				<th>Actions</th>
+			</tr>
+			<tr ng-repeat='elem in data'>
+				<td>{{elem.title}}</td>
+				<td><a class='btn btn-warning' href="modify.html?id={{elem.id}}">Modify</a></td>
+			</tr>
+		</table>
+	</div>
+
+
+</body>
+<script src='javascripts/jquery2.1.3/jquery.min.js'></script>
+<script src='javascripts/bootstrap3.3.2/js/bootstrap.min.js'></script>
+<script src='javascripts/angular1.2.19/angular.js'></script>
+<script src='javascripts/json/json2.js'></script>
+<script>
+	function MyController($scope, $http) {
+		//$scope.data = [{title: 'welcome hello'},{title: 'great testing'}];
+
+		$http.get("webapi/blog/list", {}).success(function(data, status, headers, config) {
+			$scope.data = data;
+		}).error(function(data, status, headers, config) {
+			alert("error");
+		})
+	}
+</script>
+
+</html>
